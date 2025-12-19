@@ -1,0 +1,22 @@
+sequenceDiagram
+    participant User
+    participant React as React App
+    participant tRPC as tRPC Client
+    participant Express as Express Server
+    participant Mock as Mock Data
+    participant WS as WebSocket
+
+    User->>React: Navigate to Dashboard
+    React->>tRPC: Query metrics/logs/alerts
+    tRPC->>Express: HTTP Request
+    Express->>Mock: Generate data
+    Mock-->>Express: Return mock data
+    Express-->>tRPC: JSON Response
+    tRPC-->>React: Typed data
+    React-->>User: Render UI
+
+    loop Every 3 seconds
+        WS->>React: Push metric updates
+        React-->>User: Update charts
+    end
+

@@ -1,0 +1,23 @@
+flowchart TB
+    subgraph TrustChain["Certificate Trust Chain"]
+        direction TB
+        Root["🔐 DigiCert Global Root G2<br/><i>Self-Signed Root CA</i><br/><small>Trusted by all major browsers</small>"]
+        Intermediate["📜 DigiCert Global G2 TLS RSA SHA256 2020 CA1<br/><i>Intermediate CA</i>"]
+        Server["🌐 eri2appdl12v.corp.cvscaremark.com<br/><i>Server Certificate</i><br/><small>Valid: Dec 2025 - Nov 2026</small>"]
+        
+        Root -->|"Signs"| Intermediate
+        Intermediate -->|"Signs"| Server
+    end
+    
+    subgraph Browser["Browser Verification"]
+        direction LR
+        B1["1️⃣ Browser receives<br/>server certificate"]
+        B2["2️⃣ Validates against<br/>intermediate CA"]
+        B3["3️⃣ Traces to<br/>trusted root"]
+        B4["✅ Connection<br/>Secure"]
+        
+        B1 --> B2 --> B3 --> B4
+    end
+    
+    Server -.->|"Presented to"| B1
+

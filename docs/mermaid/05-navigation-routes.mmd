@@ -1,0 +1,34 @@
+flowchart LR
+    subgraph MainNav["Main Navigation"]
+        Overview["/dashboard"]
+        ExecSummary["/dashboard/executive-summary"]
+        Comparison["/dashboard/comparison"]
+    end
+
+    subgraph Monitoring["Monitoring"]
+        Metrics["/dashboard/metrics"]
+        DrillDown["/dashboard/drill-down"]
+        Network["/dashboard/network"]
+        Subnets["/dashboard/subnets"]
+    end
+
+    subgraph Operations["Operations"]
+        Logs["/dashboard/logs"]
+        Alerts["/dashboard/alerts"]
+        AlertRules["/dashboard/alert-rules"]
+        Incidents["/dashboard/incidents"]
+        Topology["/dashboard/topology"]
+    end
+
+    subgraph Analysis["Analysis"]
+        Correlation["/dashboard/correlation"]
+        RootCause["/dashboard/root-cause"]
+        Cost["/dashboard/cost-optimization"]
+        SLA["/dashboard/sla-tracking"]
+        Analytics["/dashboard/analytics"]
+    end
+
+    Overview --> ExecSummary
+    ExecSummary --> Comparison
+    Comparison --> Metrics
+

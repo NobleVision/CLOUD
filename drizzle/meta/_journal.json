@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1764186048866,
+      "tag": "0000_glorious_psylocke",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1764186097920,
+      "tag": "0001_supreme_mister_fear",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1764186889910,
+      "tag": "0002_absent_mac_gargan",
+      "breakpoints": true
+    }
+  ]
+}

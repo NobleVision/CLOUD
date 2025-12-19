@@ -1,0 +1,46 @@
+flowchart TB
+    App["App.tsx"] --> ThemeProvider["ThemeProvider"]
+    ThemeProvider --> QueryProvider["QueryClientProvider"]
+    QueryProvider --> Router["Router"]
+
+    Router --> Login["Login Page<br/>(Animated)"]
+    Router --> DashboardRouter["DashboardRouter"]
+
+    DashboardRouter --> Layout["DashboardLayout"]
+    Layout --> Sidebar["Sidebar Navigation<br/>(Animated Menu)"]
+    Layout --> Header["Header + Dark Mode"]
+    Layout --> NotificationCenter["NotificationCenter<br/>(Smart Alerts)"]
+    Layout --> ChatAssistant["ChatAssistant<br/>(AI Interface)"]
+    Layout --> PageTransition["PageTransition<br/>(Framer Motion)"]
+    PageTransition --> Pages["Page Components"]
+
+    subgraph CorePages["Core Pages"]
+        Dashboard["Dashboard"]
+        Metrics["Metrics"]
+        DrillDown["DrillDownMetrics"]
+        Network["NetworkAnalysis"]
+        Subnets["SubnetMonitoring"]
+        Logs["Logs + AI Insights"]
+        Alerts["Alerts"]
+        AlertRules["AlertRules"]
+    end
+
+    subgraph WowPages["Wow Factor Pages"]
+        ExecutiveSummary["ExecutiveSummary<br/>(PDF Export)"]
+        ComparisonMode["ComparisonMode<br/>(Side-by-Side)"]
+        IncidentTimeline["IncidentTimeline<br/>(Blast Radius)"]
+        TopologyMap["TopologyMap<br/>(Live Network)"]
+    end
+
+    subgraph AnalyticsPages["Analytics Pages"]
+        Correlation["Correlation"]
+        RootCause["RootCause"]
+        CostOptimization["CostOptimization"]
+        SLATracking["SLATracking"]
+        Analytics["Analytics"]
+    end
+
+    Pages --> CorePages
+    Pages --> WowPages
+    Pages --> AnalyticsPages
+

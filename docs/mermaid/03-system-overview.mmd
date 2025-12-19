@@ -1,0 +1,40 @@
+flowchart TB
+    subgraph Client["Frontend (Port 5443)"]
+        React["React 19 + TypeScript"]
+        Router["Wouter Router"]
+        Charts["Chart.js / Recharts"]
+        UI["shadcn/ui Components"]
+        WS_Client["WebSocket Client"]
+        FramerMotion["Framer Motion"]
+        XYFlow["@xyflow/react"]
+    end
+
+    subgraph Server["Backend (Port 5442)"]
+        Express["Express.js"]
+        tRPC["tRPC Router"]
+        WS_Server["WebSocket Server"]
+        MockData["Mock Data Generator"]
+    end
+
+    subgraph DataStores["Data Layer"]
+        PostgreSQL[(PostgreSQL)]
+        InfluxDB[(InfluxDB)]
+        Memory["In-Memory Cache"]
+    end
+
+    subgraph AILayer["AI Features"]
+        AIInsights["AI Log Insights"]
+        ChatAssistant["Chat Assistant"]
+        RootCauseAI["Root Cause AI"]
+    end
+
+    React --> tRPC
+    WS_Client <-.->|Real-time| WS_Server
+    tRPC --> Express
+    Express --> MockData
+    MockData --> Memory
+    Express -.-> PostgreSQL
+    Express -.-> InfluxDB
+    React --> AILayer
+    AILayer --> Express
+

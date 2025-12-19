@@ -1,0 +1,75 @@
+Summary:
+This document provides an in-depth overview of Google Cloud's Observability tools, including Cloud Monitoring, Cloud Logging, Cloud Trace, and related services. ​ It highlights their functionalities, pricing, integrations, and best practices for optimizing costs and improving system performance. The focus is on enabling users to monitor, analyze, and troubleshoot their cloud environments across hybrid and multi-cloud setups.
+
+Key Highlights:
+Cloud Monitoring
+
+Collects metrics, events, and metadata from GCP, AWS, and hybrid environments. ​
+Offers over 5,000 metrics across 60+ GCP services. ​
+Features customizable dashboards, PromQL support, and multi-project scopes.
+Resource grouping for targeted monitoring and alerting.
+MQL will be deprecated by July 2025; PromQL is recommended. ​
+
+Cloud Logging
+
+Automatically ingests logs from GCP resources, applications, and external sources.
+Provides tools for error reporting, log exploration, and analytics. ​
+Supports structured logging (JSON-based) for better querying. ​
+Enables log routing to Cloud Storage, BigQuery, or Pub/Sub with custom retention periods. ​
+Pricing: $0.50/GiB for ingestion (50 GiB free per project/month); $0.01/GiB for logs retained past 30 days.
+
+Cloud Trace
+
+Offers end-to-end tracing for latency and error diagnostics. ​
+Compatible with OpenTelemetry for trace data collection. ​
+Pricing: $0.20/million spans (2.5 million spans free per month). ​
+
+Dashboards
+
+Service-specific and customizable dashboards with various widget types. ​
+Integration with Grafana for Prometheus metrics. ​
+Dashboard templates available for easy setup. ​
+
+Alerting
+
+Supports metric-based and log-based alerting policies with various conditions. ​
+Notification channels include Google Cloud App, PagerDuty, Slack, SMS, Email, and Webhooks. ​
+Pricing: $1.50/month per condition in an alerting policy. ​
+
+Synthetic Monitoring
+
+Simulated requests to monitor resource availability and latency. ​
+Alerts for test failures. ​
+
+Error Reporting
+
+Aggregates errors from logs and API-reported errors. ​
+Configurable notifications via Cloud Monitoring channels. ​
+
+Managed Service for Prometheus ​
+
+Fully managed solution for Prometheus metrics with PromQL support. ​
+Handles large-scale data and integrates with Grafana. ​
+Pricing: $0.06/million samples for the first 50 billion samples ingested. ​
+
+Service-Level Objectives (SLOs) ​
+
+Framework for defining SLIs and SLOs. ​
+Error budget monitoring for risk mitigation. ​
+Auto-generated telemetry dashboards for microservices.
+
+Active Assist
+
+Tools for reducing cloud complexity and optimizing security, performance, and costs. ​
+Includes Network Intelligence Centers, Policy Simulator, and Firewall Insights. ​
+
+Uptime Checks
+
+Public and private uptime checks for monitoring resource availability. ​
+Alerts for failed uptime checks. ​
+
+Cost Optimization
+
+Strategies include log exclusion/filtering, optimizing retention periods, and sampling trace data.
+
+This document serves as a guide for leveraging Google Cloud's Observability suite to enhance system monitoring, troubleshooting, and cost efficiency in cloud environments.

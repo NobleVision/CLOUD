@@ -1,0 +1,17 @@
+flowchart LR
+    subgraph Backend
+        Generator["Metric Generator"]
+        WSServer["WebSocket Server"]
+    end
+
+    subgraph Frontend
+        Hook["useWebSocket Hook"]
+        State["React State"]
+        Charts["Chart Components"]
+    end
+
+    Generator -->|Every 3s| WSServer
+    WSServer -->|Broadcast| Hook
+    Hook -->|Update| State
+    State -->|Re-render| Charts
+

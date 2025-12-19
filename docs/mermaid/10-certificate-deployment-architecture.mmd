@@ -1,0 +1,38 @@
+flowchart LR
+    subgraph PFX["PFX Bundle"]
+        P1["🔒 eri2appdl12v.corp.cvscaremark.com.pfx<br/><small>Password protected</small>"]
+    end
+    
+    subgraph Extract["Extraction Process"]
+        E1["openssl pkcs12<br/>-nocerts -nodes"]
+        E2["openssl pkcs12<br/>-clcerts -nokeys"]
+        E3["openssl pkcs12<br/>-cacerts -nokeys"]
+    end
+    
+    subgraph Files["Certificate Files"]
+        F1["🔑 eri2appdl12v.key<br/><small>Private Key</small>"]
+        F2["📄 eri2appdl12v.crt<br/><small>Server Cert</small>"]
+        F3["📋 intermediate.crt<br/><small>CA Chain</small>"]
+    end
+    
+    subgraph Chain["Full Chain"]
+        C1["📦 fullchain.crt<br/><small>Server + Intermediates</small>"]
+    end
+    
+    subgraph Services["HTTPS Services"]
+        S1["🖥️ Frontend<br/>Port 5443"]
+        S2["⚙️ Backend<br/>Port 5442"]
+    end
+    
+    P1 --> E1 --> F1
+    P1 --> E2 --> F2
+    P1 --> E3 --> F3
+    
+    F2 --> C1
+    F3 --> C1
+    
+    C1 --> S1
+    C1 --> S2
+    F1 --> S1
+    F1 --> S2
+

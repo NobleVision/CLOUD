@@ -1,0 +1,23 @@
+[Unit]
+Description=ADP GCP Observability Frontend - HTTPS Static Server
+After=network.target observability-backend.service
+Wants=observability-backend.service
+
+[Service]
+Type=simple
+User=toweragent
+WorkingDirectory=/opt/Scripts/Observability
+ExecStart=/usr/bin/node /opt/Scripts/Observability/scripts/serve-frontend.js
+Restart=on-failure
+RestartSec=5
+Environment=NODE_ENV=production
+Environment=PORT=5443
+Environment=BACKEND_PORT=5442
+Environment=SSL_KEY_PATH=/opt/Scripts/Observability/certs/eri2appdl12v.key
+Environment=SSL_CERT_PATH=/opt/Scripts/Observability/certs/fullchain.crt
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=observability-frontend
+
+[Install]
+WantedBy=multi-user.target

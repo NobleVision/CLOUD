@@ -1,0 +1,14 @@
+Cloud native solution
+	Observability 
+	Management
+	Whatever tools 
+	Basic metrics
+	CPU/utilization
+	Top talkers
+	Grafana style dashboards
+	Cloud watch
+	Something simple
+	Top native approvability platforms keep track
+	manager FOR EACH ENVIORNMENT
+	all OF gcp Monitoring; TOKENS USED
+	predictive ANALYSIS ON; future growth predictions

@@ -1,0 +1,7 @@
+flowchart LR
+    Input["Natural Language<br/>Query"] --> Parser["NLP Query<br/>Parser"]
+    Parser --> Filters["Extracted<br/>Filters"]
+    Filters --> Display["Query<br/>Interpretation<br/>Display"]
+    Filters --> Data["Filtered<br/>Results"]
+    Data --> Scroll["Auto-Scroll<br/>to Results"]
+

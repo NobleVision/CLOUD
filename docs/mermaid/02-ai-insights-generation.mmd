@@ -1,0 +1,10 @@
+flowchart TB
+    Data["Current<br/>Dataset"] --> Analyze["Pattern<br/>Analysis"]
+    Analyze --> Patterns["Detected<br/>Patterns"]
+    Analyze --> Correlations["Event<br/>Correlations"]
+    Analyze --> RootCauses["Root Cause<br/>Analysis"]
+    Patterns --> Summary["AI Summary"]
+    Correlations --> Summary
+    RootCauses --> Summary
+    Summary --> Recommendations["Actionable<br/>Recommendations"]
+

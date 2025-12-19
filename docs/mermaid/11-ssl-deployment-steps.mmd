@@ -1,0 +1,33 @@
+flowchart TD
+    subgraph Deployment["SSL Certificate Deployment Steps"]
+        S1["📤 Step 1: Upload PFX"]
+        S2["🔑 Step 2: Extract Private Key"]
+        S3["📄 Step 3: Extract Server Cert"]
+        S4["📋 Step 4: Extract Intermediates"]
+        S5["📦 Step 5: Create Fullchain"]
+        S6["✅ Step 6: Verify Chain"]
+        S7["🔍 Step 7: Verify EKU"]
+        S8["🔄 Step 8: Restart Services"]
+        S9["🧪 Step 9: Test Connection"]
+        
+        S1 --> S2 --> S3 --> S4 --> S5 --> S6 --> S7 --> S8 --> S9
+    end
+    
+    subgraph Verification["Verification Checks"]
+        V1["Chain Complete?"]
+        V2["EKU = Server Auth?"]
+        V3["Return Code = 0?"]
+        
+        S6 --> V1
+        S7 --> V2
+        S9 --> V3
+    end
+    
+    V1 -->|"Yes"| S7
+    V2 -->|"Yes"| S8
+    V3 -->|"Yes"| Done["✅ Deployment Complete"]
+    
+    V1 -->|"No"| Fix1["Fix: Check PFX contents"]
+    V2 -->|"No"| Fix2["Fix: Request new cert with correct EKU"]
+    V3 -->|"No"| Fix3["Fix: Check service logs"]
+

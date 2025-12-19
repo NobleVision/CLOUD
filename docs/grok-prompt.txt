@@ -1,0 +1,70 @@
+Develop an application for CVS that serves as a comprehensive internal web dashboard for observability across our entire Google Cloud Platform (GCP) environment. This dashboard must replicate and extend the core functionalities of GCP's native observability tools, including Cloud Monitoring, Cloud Logging, and Cloud Trace, while incorporating additional features for management, predictive analysis, and cost optimization. The goal is to create a self-contained solution that avoids reliance on external vendors or Google's paid observability services beyond basic API integrations, thereby reducing costs and enhancing internal control.
+
+### Application Overview
+- **Type**: Web-based dashboard application.
+- **Target Users**: Developers, platform administrators, business analysts, security analysts, and operations teams within CVS.
+- **Deployment**: Host the application on GCP infrastructure, such as Cloud Run or App Engine, for scalability and integration ease.
+- **Technology Stack**: Use React.js or Vue.js for the frontend to enable interactive, Grafana-style visualizations; Node.js or Python (with Flask/Django) for the backend; integrate with GCP SDKs/APIs (e.g., Monitoring API, Logging API, Trace API) for data retrieval. Employ open-source libraries like Prometheus for metrics handling, OpenTelemetry for tracing, and SQL-like querying for logs. Ensure compatibility with open standards to facilitate future expansions.
+- **Security**: Implement authentication via Google Identity and Access Management (IAM), with role-based access control (e.g., viewer, editor roles per environment). Encrypt data in transit and at rest.
+- **Scalability and Performance**: Design for high-performance handling of large datasets, with features like data caching, pagination, and real-time updates via WebSockets.
+- **UI/UX Guidelines**: Adopt a formal, professional interface with clear navigation, well-structured layouts, and precise visualizations. Avoid casual elements; prioritize usability for professional users. Include responsive design for desktop and mobile access.
+
+### Core Features
+1. **Metrics Monitoring**:
+   - Automatically ingest and display time-series metrics from over 60 GCP services, with no additional ingestion costs where possible.
+   - Support for more than 5,000 built-in metrics, including basic ones like CPU utilization, network top talkers (e.g., highest traffic sources/destinations), and custom metrics.
+   - Leverage open-source standards such as Prometheus for collection across compute workloads (e.g., GKE, GCE) and OpenTelemetry for agent-based monitoring.
+   - Provide in-context visualizations and alerts, allowing users to view telemetry alongside workloads.
+   - Enable customization for key workloads, such as tuning with managed Prometheus on GKE or Ops Agent on GCE.
+   - Include multi-project scopes to monitor metrics across single projects, multiple projects in one organization, or across organizations and AWS accounts.
+
+2. **Logs Management**:
+   - Facilitate automatic, easy ingestion of logs from GCP services, applications, on-premises resources, and other cloud providers.
+   - Offer compliance insights by leveraging audit and application logs to identify patterns and issues.
+   - Include tools for quick analysis: Error Reporting (aggregate errors with notifications), Log Explorer (query and view logs), and Log Analytics (SQL-based aggregate operations like counting entries).
+   - Allow customizable routing and storage: Route logs to regions or services for compliance/business benefits; support sinks like Cloud Storage, BigQuery, or Pub/Sub.
+   - Handle audit logs (Admin Activity, Data Access, System Event, Policy Denied) with configurable options.
+   - Provide query language support for filtering via console-like interface or CLI equivalents, with sample queries and restrictions.
+
+3. **Tracing**:
+   - Enable fast, automatic issue detection by gathering and analyzing trace data to diagnose latency issues and errors.
+   - Support compatibility with OpenTelemetry and popular languages for prioritization of bottlenecks where customers are most impacted.
+   - Use a sample-based approach to trace requests, displaying how long requests take, latency sources, and improvement opportunities.
+   - Traces consist of spans describing sub-operations; automatically collect latency data for Cloud Functions and Cloud Run HTTP requests.
+
+4. **Alerting**:
+   - Support metric-based and log-based alerting policies, including metric absence, threshold, rate-of-change, group-aggregate, uptime-check, process-health, and metric-ratio conditions.
+   - Create incidents and send notifications via channels like email, SMS, Slack, PagerDuty, webhooks, Pub/Sub, or Google Cloud Mobile App.
+   - Allow documentation within policies to guide handling; snooze options for notifications.
+   - Pre-built packages for GCP services and third-party integrations; define queries using PromQL or equivalent.
+   - Log-based alerts for near-real-time notifications on specific messages (e.g., in audit logs), operating on included logs only.
+   - Budget alerts to track costs against plans, with Pub/Sub notifications.
+
+5. **Dashboards**:
+   - Provide predefined service-specific dashboards (e.g., for Compute Engine) and custom dashboards with various widget types (charts, graphs, tables, heatmaps, scorecards).
+   - Adopt a Grafana-style interface for visualizations, supporting PromQL queries, filtering by labels/criteria, and data alignment/combination.
+   - Enable copying/sharing dashboards across projects; integrate with resource groups for automatic dashboard creation.
+   - Include SLO monitoring dashboards with error budgets, compliance computations, and "fast-burn" alerts.
+
+6. **Cost Monitoring and Optimization**:
+   - Track ingestion, storage, and retention costs for logs, metrics, and traces, with free allotments (e.g., first 50 GiB logs/project, 150 MiB metrics/billing account).
+   - Display billing reports and scenarios for optimization (e.g., excluding/filtering logs, sampling traces, reducing retention below defaults where feasible).
+   - Alert on exceeding user-defined limits (e.g., monthly trace spans) or budgets.
+
+7. **Predictive Analysis**:
+   - Implement machine learning-based predictions for future resource growth, usage trends, and potential bottlenecks based on historical metrics/logs.
+   - Provide visualizations of projected CPU/utilization, storage needs, and costs to aid capacity planning.
+
+8. **Management Per Environment**:
+   - Support managers/views for each environment (e.g., dev, staging, prod) across multi-project scopes.
+   - Allow grouping resources by labels, regions, or applications; create alerts/dashboards specific to groups.
+   - Handle hybrid/multi-cloud setups with integrations for on-premises/AWS/Azure via agents like BindPlane.
+
+### Additional Requirements
+- **Data Retention and Quotas**: Align with GCP defaults (e.g., 30 days for default logs, configurable up to 3650 days) and provide admin tools to manage quotas.
+- **Integrations**: Support third-party apps (e.g., Apache, MySQL) via agents; ensure seamless pivoting between metrics, logs, and traces.
+- **Simplicity**: Keep the interface simple yet thorough, with guided experiences for creating SLOs, services, and alerts.
+- **Testing and Documentation**: Include unit/integration tests; generate user documentation on usage and troubleshooting.
+- **Compliance**: Ensure features for audit log handling and security policy violations.
+
+Build this application step-by-step, starting with core modules (metrics, logs, tracing), then adding alerting, dashboards, and advanced features. Provide the source code repository, deployment instructions, and a demo instance upon completion.

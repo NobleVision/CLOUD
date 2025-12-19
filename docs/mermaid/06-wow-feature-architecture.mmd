@@ -1,0 +1,39 @@
+flowchart TB
+    subgraph TopologySystem["Live Topology Map"]
+        XYFlow["@xyflow/react"]
+        Layouts["Layout Engine<br/>(Manual, Hierarchical,<br/>Circular, Grid, Force)"]
+        NodeTypes["Custom Nodes<br/>(Gateway, Service,<br/>Database, Cache)"]
+        EdgeTypes["Interactive Edges<br/>(Metrics, Health)"]
+        EnvSelector["Environment Selector<br/>(Prod, Staging, Dev)"]
+        LiveUpdates["Live Updates<br/>(Status, Metrics)"]
+    end
+
+    subgraph IncidentSystem["Incident Timeline"]
+        Timeline["Chronological View"]
+        BlastRadius["Blast Radius Map"]
+        ImpactMetrics["Impact Analysis"]
+        ResolutionSteps["Resolution Tracking"]
+    end
+
+    subgraph NotificationSystem["Smart Notifications"]
+        AlertGrouping["Intelligent Grouping"]
+        PrioritySort["Priority Sorting"]
+        CategoryFilter["Category Filtering"]
+        QuickActions["Quick Actions"]
+    end
+
+    subgraph ExecSystem["Executive Summary"]
+        HealthScore["Health Score Ring"]
+        KeyMetrics["Key Metrics Grid"]
+        TrendCharts["Trend Charts"]
+        PDFExport["PDF Export<br/>(html2canvas + jsPDF)"]
+        PrintView["Print View<br/>(@media print)"]
+    end
+
+    subgraph ComparisonSystem["Comparison Mode"]
+        TimePeriod["Time Period<br/>Comparison"]
+        EnvCompare["Environment<br/>Comparison"]
+        ChangeIndicators["Change Indicators<br/>(+/- Badges)"]
+        TrendCompare["Trend Charts"]
+    end
+
