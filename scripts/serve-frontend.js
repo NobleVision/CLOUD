@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * CVS GCP Observability Frontend Server
+ * ADP GCP Observability Frontend Server
  *
  * Serves the built frontend static files over HTTPS.
  * Proxies API requests and WebSocket connections to the backend server.
@@ -234,7 +234,7 @@ function startServer() {
   server.on('upgrade', proxyWebSocket);
 
   server.listen(PORT, () => {
-    console.log(`[Frontend] CVS GCP Observability Dashboard`);
+    console.log(`[Frontend] ADP GCP Observability Dashboard`);
     console.log(`[Frontend] Running on https://localhost:${PORT}/`);
     console.log(`[Frontend] Backend proxy: https://localhost:${BACKEND_PORT}/`);
     console.log(`[Frontend] WebSocket proxy: wss://localhost:${BACKEND_PORT}/ws/metrics`);

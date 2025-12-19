@@ -43,7 +43,7 @@ export function useAuth(options?: UseAuthOptions) {
   const state = useMemo(() => {
     // Store user info in localStorage for persistence
     localStorage.setItem(
-      "cvs-observability-user-info",
+      "adp-observability-user-info",
       JSON.stringify(meQuery.data)
     );
     return {

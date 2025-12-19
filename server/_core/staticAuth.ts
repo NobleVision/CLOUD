@@ -1,5 +1,5 @@
 /**
- * Static Authentication for CVS GCP Observability Dashboard
+ * Static Authentication for ADP GCP Observability Dashboard
  * 
  * This module provides a simple static login mechanism for demo purposes.
  * Demo credentials: admin / admin
@@ -32,8 +32,8 @@ const DEMO_USER: StaticUser = {
   id: 1,
   openId: "demo-admin-001",
   username: "admin",
-  name: "CVS Administrator",
-  email: "admin@cvs.local",
+  name: "ADP Administrator",
+  email: "admin@adp.local",
   role: "admin",
 };
 

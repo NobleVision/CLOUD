@@ -62,20 +62,20 @@ const projects: Record<string, Project[]> = {
     { id: 'p4', name: 'adp-dev-sandbox', environment: 'dev', region: 'us-west1', status: 'healthy', metrics: { cpu: 28, memory: 35, network: 15, cost: 450 }, resourceCount: 8, nccConnected: false },
   ],
   gke: [
-    { id: 'p5', name: 'cvs-gke-prod', environment: 'prod', region: 'us-central1', status: 'warning', metrics: { cpu: 85, memory: 88, network: 65, cost: 8500 }, resourceCount: 45, nccConnected: true },
-    { id: 'p6', name: 'cvs-gke-staging', environment: 'staging', region: 'us-east1', status: 'healthy', metrics: { cpu: 55, memory: 62, network: 40, cost: 2800 }, resourceCount: 28, nccConnected: true },
+    { id: 'p5', name: 'adp-gke-prod', environment: 'prod', region: 'us-central1', status: 'warning', metrics: { cpu: 85, memory: 88, network: 65, cost: 8500 }, resourceCount: 45, nccConnected: true },
+    { id: 'p6', name: 'adp-gke-staging', environment: 'staging', region: 'us-east1', status: 'healthy', metrics: { cpu: 55, memory: 62, network: 40, cost: 2800 }, resourceCount: 28, nccConnected: true },
   ],
   storage: [
-    { id: 'p7', name: 'cvs-data-lake', environment: 'prod', region: 'us-multi', status: 'healthy', metrics: { cpu: 0, memory: 0, network: 45, cost: 1800 }, resourceCount: 156, nccConnected: false },
+    { id: 'p7', name: 'adp-data-lake', environment: 'prod', region: 'us-multi', status: 'healthy', metrics: { cpu: 0, memory: 0, network: 45, cost: 1800 }, resourceCount: 156, nccConnected: false },
   ],
   database: [
-    { id: 'p8', name: 'cvs-sql-prod', environment: 'prod', region: 'us-central1', status: 'healthy', metrics: { cpu: 55, memory: 72, network: 35, cost: 3500 }, resourceCount: 8, nccConnected: true },
+    { id: 'p8', name: 'adp-sql-prod', environment: 'prod', region: 'us-central1', status: 'healthy', metrics: { cpu: 55, memory: 72, network: 35, cost: 3500 }, resourceCount: 8, nccConnected: true },
   ],
   network: [
-    { id: 'p9', name: 'cvs-vpc-shared', environment: 'prod', region: 'global', status: 'healthy', metrics: { cpu: 0, memory: 0, network: 55, cost: 850 }, resourceCount: 12, nccConnected: true },
+    { id: 'p9', name: 'adp-vpc-shared', environment: 'prod', region: 'global', status: 'healthy', metrics: { cpu: 0, memory: 0, network: 55, cost: 850 }, resourceCount: 12, nccConnected: true },
   ],
   ncc: [
-    { id: 'p10', name: 'cvs-ncc-hub', environment: 'prod', region: 'global', status: 'healthy', metrics: { cpu: 0, memory: 0, network: 42, cost: 1200 }, resourceCount: 8, nccConnected: true },
+    { id: 'p10', name: 'adp-ncc-hub', environment: 'prod', region: 'global', status: 'healthy', metrics: { cpu: 0, memory: 0, network: 42, cost: 1200 }, resourceCount: 8, nccConnected: true },
   ],
 };
 

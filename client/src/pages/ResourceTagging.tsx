@@ -71,11 +71,11 @@ const resources: Resource[] = [
   { id: '2', name: 'staging-db-primary', type: 'Cloud SQL', project: 'adp-staging', region: 'us-east1', tags: { environment: 'staging', team: 'data' }, missingTags: ['cost_center', 'owner'], complianceScore: 50, status: 'partial' },
   { id: '3', name: 'dev-worker-pool', type: 'GKE Cluster', project: 'adp-dev', region: 'us-west1', tags: { environment: 'development' }, missingTags: ['team', 'cost_center', 'owner'], complianceScore: 25, status: 'non_compliant' },
   { id: '4', name: 'analytics-bucket', type: 'Cloud Storage', project: 'adp-analytics', region: 'us-central1', tags: { environment: 'production', team: 'analytics', cost_center: 'CC-2001', owner: 'analytics@adp.com' }, missingTags: [], complianceScore: 100, status: 'compliant' },
-  { id: '5', name: 'ml-training-gpu', type: 'Compute Instance', project: 'cvs-ml', region: 'us-central1', tags: { environment: 'production', team: 'ml' }, missingTags: ['cost_center', 'owner'], complianceScore: 50, status: 'partial' },
-  { id: '6', name: 'legacy-app-vm', type: 'Compute Instance', project: 'cvs-legacy', region: 'us-east1', tags: {}, missingTags: ['environment', 'team', 'cost_center', 'owner'], complianceScore: 0, status: 'non_compliant' },
+  { id: '5', name: 'ml-training-gpu', type: 'Compute Instance', project: 'adp-ml', region: 'us-central1', tags: { environment: 'production', team: 'ml' }, missingTags: ['cost_center', 'owner'], complianceScore: 50, status: 'partial' },
+  { id: '6', name: 'legacy-app-vm', type: 'Compute Instance', project: 'adp-legacy', region: 'us-east1', tags: {}, missingTags: ['environment', 'team', 'cost_center', 'owner'], complianceScore: 0, status: 'non_compliant' },
   { id: '7', name: 'cache-redis-cluster', type: 'Memorystore', project: 'adp-prod', region: 'us-central1', tags: { environment: 'production', team: 'platform', cost_center: 'CC-1001' }, missingTags: ['owner'], complianceScore: 75, status: 'partial' },
   { id: '8', name: 'pubsub-orders', type: 'Pub/Sub Topic', project: 'adp-prod', region: 'global', tags: { environment: 'production', team: 'orders', cost_center: 'CC-3001', owner: 'orders@adp.com' }, missingTags: [], complianceScore: 100, status: 'compliant' },
-  { id: '9', name: 'test-function', type: 'Cloud Function', project: 'cvs-test', region: 'us-central1', tags: { environment: 'test' }, missingTags: ['team', 'cost_center', 'owner'], complianceScore: 25, status: 'non_compliant' },
+  { id: '9', name: 'test-function', type: 'Cloud Function', project: 'adp-test', region: 'us-central1', tags: { environment: 'test' }, missingTags: ['team', 'cost_center', 'owner'], complianceScore: 25, status: 'non_compliant' },
   { id: '10', name: 'prod-lb-frontend', type: 'Load Balancer', project: 'adp-prod', region: 'global', tags: { environment: 'production', team: 'platform', cost_center: 'CC-1001', owner: 'platform-team@adp.com' }, missingTags: [], complianceScore: 100, status: 'compliant' },
 ];
 
@@ -98,7 +98,7 @@ const tagCoverage: TagCoverage[] = [
 ];
 
 const complianceByProjectData = {
-  labels: ['adp-prod', 'adp-staging', 'adp-dev', 'adp-analytics', 'cvs-ml', 'cvs-legacy', 'cvs-test'],
+  labels: ['adp-prod', 'adp-staging', 'adp-dev', 'adp-analytics', 'adp-ml', 'adp-legacy', 'adp-test'],
   datasets: [{
     label: 'Compliance Score',
     data: [95, 50, 25, 100, 50, 0, 25],

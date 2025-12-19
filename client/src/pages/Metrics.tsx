@@ -994,7 +994,7 @@ export default function Metrics() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {['cvs-web-server-01', 'cvs-api-server-01', 'cvs-worker-01', 'cvs-db-primary'].map((resource, idx) => {
+              {['adp-web-server-01', 'adp-api-server-01', 'adp-worker-01', 'adp-db-primary'].map((resource, idx) => {
                 const value = 85 - idx * 15;
                 const isWarning = value > (metricConfig?.threshold || 80);
                 return (

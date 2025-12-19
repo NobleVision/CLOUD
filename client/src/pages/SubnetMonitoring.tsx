@@ -112,7 +112,7 @@ function parseSubnetNLPQuery(query: string): ParsedSubnetQuery {
   if (result.purposes.length > 0) explanationParts.push(`Environment: ${result.purposes.join(', ')}`);
 
   // Parse VPC names
-  const vpcPattern = /\b(cvs-(?:prod|staging|dev|mgmt)-vpc)\b/i;
+  const vpcPattern = /\b(adp-(?:prod|staging|dev|mgmt)-vpc)\b/i;
   const vpcMatch = lowercaseQuery.match(vpcPattern);
   if (vpcMatch) {
     result.vpcs.push(vpcMatch[1]);

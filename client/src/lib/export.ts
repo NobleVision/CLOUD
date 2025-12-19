@@ -47,10 +47,10 @@ export function exportToPDF(exportData: ExportData): void {
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
   
-  // Add CVS Logo/Header
+  // Add ADP Logo/Header
   doc.setFontSize(20);
-  doc.setTextColor(204, 0, 0); // CVS Red
-  doc.text('CVS GCP Observability', 14, 20);
+  doc.setTextColor(208, 39, 29); // ADP Red (#d0271d)
+  doc.text('ADP GCP Observability', 14, 20);
   
   // Add title
   doc.setFontSize(16);
@@ -97,7 +97,7 @@ export function exportToPDF(exportData: ExportData): void {
       })),
       theme: 'striped',
       headStyles: {
-        fillColor: [204, 0, 0], // CVS Red
+        fillColor: [208, 39, 29], // ADP Red (#d0271d)
         textColor: [255, 255, 255],
         fontStyle: 'bold',
       },
@@ -122,7 +122,7 @@ export function exportToPDF(exportData: ExportData): void {
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
     doc.text(`Page ${i} of ${pageCount}`, pageWidth - 30, doc.internal.pageSize.getHeight() - 10);
-    doc.text('CVS GCP Observability Dashboard', 14, doc.internal.pageSize.getHeight() - 10);
+    doc.text('ADP GCP Observability Dashboard', 14, doc.internal.pageSize.getHeight() - 10);
   }
   
   const filename = `${title.replace(/\s+/g, '_').toLowerCase()}_${formatDateForFilename(timestamp)}.pdf`;

@@ -176,7 +176,7 @@ Time window in milliseconds
 #### `CORS_ORIGINS`
 Comma-separated list of allowed origins
 
-**Example**: `https://cvs.com,https://www.cvs.com,https://admin.cvs.com`
+**Example**: `https://adp.com,https://www.adp.com,https://admin.adp.com`
 
 ---
 

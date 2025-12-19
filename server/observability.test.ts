@@ -8,7 +8,7 @@ function createTestContext(): TrpcContext {
   const user: AuthenticatedUser = {
     id: 1,
     openId: "test-user",
-    email: "test@cvs.com",
+    email: "test@adp.com",
     name: "Test User",
     loginMethod: "test",
     role: "admin",
@@ -140,7 +140,7 @@ describe("Metrics API", () => {
       timeRange: '-1h',
       filters: {
         environment: 'prod',
-        project: 'cvs-main',
+        project: 'adp-main',
       },
     });
     
@@ -264,7 +264,7 @@ describe("Authentication", () => {
     const user = await caller.auth.me();
     
     expect(user).toBeDefined();
-    expect(user?.email).toBe('test@cvs.com');
+    expect(user?.email).toBe('test@adp.com');
     expect(user?.role).toBe('admin');
   });
 
