@@ -4,7 +4,9 @@
  */
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { COOKIE_NAME } from '../../shared/const';
+
+// Inline constants (can't import from shared/ in Vercel serverless)
+const COOKIE_NAME = 'app_session_id';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Only allow POST

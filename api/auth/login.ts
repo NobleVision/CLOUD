@@ -5,7 +5,10 @@
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { SignJWT } from 'jose';
-import { COOKIE_NAME, ONE_YEAR_MS } from '../../shared/const';
+
+// Inline constants (can't import from shared/ in Vercel serverless)
+const COOKIE_NAME = 'app_session_id';
+const ONE_YEAR_MS = 1000 * 60 * 60 * 24 * 365;
 
 const DEMO_USERNAME = process.env.DEMO_USERNAME || 'admin';
 const DEMO_PASSWORD = process.env.DEMO_PASSWORD || 'admin';

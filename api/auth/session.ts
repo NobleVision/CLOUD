@@ -6,7 +6,9 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { parse as parseCookieHeader } from 'cookie';
 import { jwtVerify } from 'jose';
-import { COOKIE_NAME } from '../../shared/const';
+
+// Inline constants (can't import from shared/ in Vercel serverless)
+const COOKIE_NAME = 'app_session_id';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'observability-demo-secret';
 

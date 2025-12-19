@@ -7,10 +7,29 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { parse as parseCookieHeader } from 'cookie';
 import { jwtVerify } from 'jose';
-import type { User } from '../../drizzle/schema';
-import type { TrpcContext } from '../../server/_core/context';
-import { COOKIE_NAME } from '../../shared/const';
-import { getServerlessDb } from './serverlessDb';
+
+// Inline constants (can't import from shared/ in Vercel serverless)
+const COOKIE_NAME = 'app_session_id';
+
+// Inline User type (can't import from drizzle/schema in Vercel serverless)
+interface User {
+  id: number;
+  openId: string;
+  email: string | null;
+  name: string | null;
+  loginMethod: string | null;
+  role: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+  lastSignedIn: Date | null;
+}
+
+// Inline TrpcContext type
+interface TrpcContext {
+  req: any;
+  res: any;
+  user: User | null;
+}
 
 const JWT_SECRET = process.env.JWT_SECRET || 'observability-demo-secret';
 
@@ -49,36 +68,15 @@ async function verifyStaticAuthToken(token: string): Promise<User | null> {
 }
 
 /**
- * Verify session token and return user from database
+ * Verify session token (simplified for serverless - no database lookup)
+ * In serverless mode, we only support static auth tokens
  */
 async function verifySessionToken(token: string): Promise<User | null> {
-  try {
-    const secretKey = getSecretKey();
-    const { payload } = await jwtVerify(token, secretKey, {
-      algorithms: ['HS256'],
-    });
-
-    const { openId } = payload as Record<string, unknown>;
-    if (typeof openId !== 'string' || !openId) {
-      return null;
-    }
-
-    // Get user from database
-    const db = await getServerlessDb();
-    if (!db) {
-      console.warn('[ServerlessContext] Database not available');
-      return null;
-    }
-
-    const { users } = await import('../../drizzle/schema');
-    const { eq } = await import('drizzle-orm');
-    
-    const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
-    return result.length > 0 ? result[0] : null;
-  } catch (error) {
-    console.warn('[ServerlessContext] Session verification failed:', error);
-    return null;
-  }
+  // Database lookup not available in serverless without bundling
+  // Static auth is handled by verifyStaticAuthToken
+  // Return null to indicate session-based auth is not available
+  console.warn('[ServerlessContext] Database session lookup not available in serverless mode');
+  return null;
 }
 
 /**
