@@ -11,11 +11,6 @@ import { appRouter } from '../../server/routers';
 import type { TrpcContext } from '../../server/_core/context';
 import { createServerlessContext } from '../_lib/serverlessContext';
 
-// Configure for serverless environment
-export const config = {
-  runtime: 'nodejs20.x',
-};
-
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Convert Vercel request to Web Request for tRPC fetch adapter
   const url = new URL(req.url || '', `https://${req.headers.host}`);
