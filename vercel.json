@@ -1,37 +1,38 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "pnpm install --no-frozen-lockfile",
-  "buildCommand": "pnpm run build",
+  "buildCommand": "pnpm run build:vercel",
   "outputDirectory": "dist/public",
   "framework": "vite",
   "functions": {
-    "api/**/*.ts": {
-      "maxDuration": 30
+    "api-dist/**/*.mjs": {
+      "maxDuration": 30,
+      "memory": 1024
     }
   },
   "rewrites": [
     {
       "source": "/api/trpc/:path*",
-      "destination": "/api/trpc/[trpc]"
+      "destination": "/api-dist/api/trpc/[trpc].mjs"
     },
     {
       "source": "/api/auth/login",
-      "destination": "/api/auth/login"
+      "destination": "/api-dist/api/auth/login.mjs"
     },
     {
       "source": "/api/auth/logout",
-      "destination": "/api/auth/logout"
+      "destination": "/api-dist/api/auth/logout.mjs"
     },
     {
       "source": "/api/auth/session",
-      "destination": "/api/auth/session"
+      "destination": "/api-dist/api/auth/session.mjs"
     },
     {
       "source": "/api/realtime/poll",
-      "destination": "/api/realtime/poll"
+      "destination": "/api-dist/api/realtime/poll.mjs"
     },
     {
-      "source": "/((?!api|assets).*)",
+      "source": "/((?!api|api-dist|assets).*)",
       "destination": "/index.html"
     }
   ],
