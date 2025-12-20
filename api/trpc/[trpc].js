@@ -16056,7 +16056,7 @@ async function queryMetrics(measurement, timeRange = "-1h", filters) {
   const client = getInfluxClient();
   if (!client) {
     const mockData = generateMockMetrics(measurement, timeRange);
-    console.log(`[InfluxDB] Using mock data for ${measurement}, timeRange=${timeRange}, points=${mockData.length}`);
+    console.log(`[InfluxDB] Mock data for ${measurement}, timeRange=${timeRange}, points=${mockData.length}, sample=${mockData.length > 0 ? JSON.stringify(mockData[0]) : "empty"}`);
     return mockData;
   }
   const org = process.env.INFLUXDB_ORG || "";
