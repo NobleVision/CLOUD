@@ -42,11 +42,20 @@ export async function queryMetrics(
   timeRange: string = '-1h',
   filters?: Record<string, string>
 ): Promise<any[]> {
+  // Always use mock data for demo - InfluxDB not configured in production
+  const useMockData = process.env.USE_MOCK_METRICS !== 'false';
+  
+  if (useMockData) {
+    const mockData = generateMockMetrics(measurement, timeRange);
+    console.log(`[Metrics] Returning ${mockData.length} mock points for ${measurement}`);
+    return mockData;
+  }
+
   const client = getInfluxClient();
   
   if (!client) {
     const mockData = generateMockMetrics(measurement, timeRange);
-    console.log(`[InfluxDB] Mock data for ${measurement}, timeRange=${timeRange}, points=${mockData.length}, sample=${mockData.length > 0 ? JSON.stringify(mockData[0]) : 'empty'}`);
+    console.log(`[InfluxDB] Mock data for ${measurement}, timeRange=${timeRange}, points=${mockData.length}`);
     return mockData;
   }
 

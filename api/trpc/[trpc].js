@@ -16053,10 +16053,16 @@ function getInfluxClient() {
   }
 }
 async function queryMetrics(measurement, timeRange = "-1h", filters) {
+  const useMockData = process.env.USE_MOCK_METRICS !== "false";
+  if (useMockData) {
+    const mockData = generateMockMetrics(measurement, timeRange);
+    console.log(`[Metrics] Returning ${mockData.length} mock points for ${measurement}`);
+    return mockData;
+  }
   const client = getInfluxClient();
   if (!client) {
     const mockData = generateMockMetrics(measurement, timeRange);
-    console.log(`[InfluxDB] Mock data for ${measurement}, timeRange=${timeRange}, points=${mockData.length}, sample=${mockData.length > 0 ? JSON.stringify(mockData[0]) : "empty"}`);
+    console.log(`[InfluxDB] Mock data for ${measurement}, timeRange=${timeRange}, points=${mockData.length}`);
     return mockData;
   }
   const org = process.env.INFLUXDB_ORG || "";
