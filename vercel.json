@@ -32,6 +32,10 @@
       "destination": "/api/realtime/poll.js"
     },
     {
+      "source": "/api/db/init",
+      "destination": "/api/db/init.js"
+    },
+    {
       "source": "/((?!api|assets).*)",
       "destination": "/index.html"
     }
