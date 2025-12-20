@@ -126,27 +126,30 @@ export async function seedMockAlerts() {
   ];
 
   try {
-    for (let i = 0; i < alertTemplates.length; i++) {
-      const template = alertTemplates[i];
-      const projectId = (i % 2) + 1; // Alternate between projects
+    // Batch all alerts
+    const alertBatch = alertTemplates.map((template, i) => {
+      const projectId = (i % 2) + 1;
       const triggeredAt = new Date(now - Math.random() * 24 * 60 * 60 * 1000);
-      
-      await db.insert(alerts).values({
+      return {
         projectId,
         ...template,
         triggeredAt,
-        status: i < 2 ? 'active' : 'acknowledged',
+        status: (i < 2 ? 'active' : 'acknowledged') as 'active' | 'acknowledged' | 'resolved',
         acknowledgedAt: i >= 2 ? new Date(triggeredAt.getTime() + 30 * 60 * 1000) : null,
-      }).onConflictDoNothing();
+      };
+    });
+
+    if (alertBatch.length > 0) {
+      await db.insert(alerts).values(alertBatch).onConflictDoNothing();
     }
-    console.log('[MockData] Seeded alerts successfully');
+    console.log(`[MockData] Seeded ${alertBatch.length} alerts successfully`);
   } catch (error) {
     console.error('[MockData] Failed to seed alerts:', error);
   }
 }
 
 /**
- * Generate mock cost records
+ * Generate mock cost records (optimized with batch insert)
  */
 export async function seedMockCosts() {
   const db = await getDb();
@@ -164,35 +167,49 @@ export async function seedMockCosts() {
   ];
 
   const now = Date.now();
-  const daysToGenerate = 30;
+  const daysToGenerate = 7; // Reduced from 30 to 7 days for faster seeding
 
   try {
+    // Batch all cost records
+    const costBatch: Array<{
+      projectId: number;
+      recordDate: Date;
+      serviceType: string;
+      cost: number;
+      currency: string;
+    }> = [];
+
     for (let day = 0; day < daysToGenerate; day++) {
       const recordDate = new Date(now - day * 24 * 60 * 60 * 1000);
       
       for (const service of services) {
         const projectId = (Math.floor(Math.random() * 2) + 1);
-        const baseCost = Math.floor(Math.random() * 50000) + 10000; // $100-$500
+        const baseCost = Math.floor(Math.random() * 50000) + 10000;
         const variance = Math.floor(Math.random() * 10000) - 5000;
         const cost = baseCost + variance;
         
-        await db.insert(costRecords).values({
+        costBatch.push({
           projectId,
           recordDate,
           serviceType: service,
           cost,
           currency: 'USD',
-        }).onConflictDoNothing();
+        });
       }
     }
-    console.log('[MockData] Seeded cost records successfully');
+
+    // Insert all at once
+    if (costBatch.length > 0) {
+      await db.insert(costRecords).values(costBatch).onConflictDoNothing();
+    }
+    console.log(`[MockData] Seeded ${costBatch.length} cost records successfully`);
   } catch (error) {
     console.error('[MockData] Failed to seed costs:', error);
   }
 }
 
 /**
- * Generate mock metric snapshots
+ * Generate mock metric snapshots (optimized with batch insert)
  */
 export async function seedMockMetrics() {
   const db = await getDb();
@@ -211,18 +228,25 @@ export async function seedMockMetrics() {
     'adp-web-server-01',
     'adp-web-server-02',
     'adp-api-server-01',
-    'adp-api-server-02',
-    'adp-worker-01',
   ];
 
   const now = Date.now();
-  const hoursToGenerate = 24;
-  const pointsPerHour = 12; // Every 5 minutes
+  const hoursToGenerate = 6; // Reduced from 24 to 6 hours
+  const pointsPerHour = 4; // Reduced from 12 to 4 (every 15 minutes)
 
   try {
+    // Batch all metric records
+    const metricBatch: Array<{
+      projectId: number;
+      metricType: string;
+      resourceName: string;
+      value: number;
+      timestamp: Date;
+    }> = [];
+
     for (let hour = 0; hour < hoursToGenerate; hour++) {
       for (let point = 0; point < pointsPerHour; point++) {
-        const timestamp = new Date(now - (hour * 60 + point * 5) * 60 * 1000);
+        const timestamp = new Date(now - (hour * 60 + point * 15) * 60 * 1000);
         
         for (const metricType of metricTypes) {
           for (const resource of resources) {
@@ -250,18 +274,23 @@ export async function seedMockMetrics() {
                 break;
             }
             
-            await db.insert(metricSnapshots).values({
+            metricBatch.push({
               projectId,
               metricType,
               resourceName: resource,
               value,
               timestamp,
-            }).onConflictDoNothing();
+            });
           }
         }
       }
     }
-    console.log('[MockData] Seeded metric snapshots successfully');
+
+    // Insert all at once
+    if (metricBatch.length > 0) {
+      await db.insert(metricSnapshots).values(metricBatch).onConflictDoNothing();
+    }
+    console.log(`[MockData] Seeded ${metricBatch.length} metric snapshots successfully`);
   } catch (error) {
     console.error('[MockData] Failed to seed metrics:', error);
   }
