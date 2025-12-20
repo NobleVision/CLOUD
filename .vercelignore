@@ -1,0 +1,5 @@
+# Ignore TypeScript source files in api/ directory
+# We use pre-bundled .js files instead
+api/**/*.ts
+api/_lib/
+api/tsconfig.json
