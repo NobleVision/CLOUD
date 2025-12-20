@@ -8,6 +8,7 @@ certs/
 dist/
 build/
 api-dist/
+api/**/*.js
 *.dist
 
 # Environment variables

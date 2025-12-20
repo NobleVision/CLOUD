@@ -5,7 +5,7 @@
   "outputDirectory": "dist/public",
   "framework": "vite",
   "functions": {
-    "api-dist/**/*.mjs": {
+    "api/**/*.js": {
       "maxDuration": 30,
       "memory": 1024
     }
@@ -13,26 +13,26 @@
   "rewrites": [
     {
       "source": "/api/trpc/:path*",
-      "destination": "/api-dist/api/trpc/[trpc].mjs"
+      "destination": "/api/trpc/[trpc].js"
     },
     {
       "source": "/api/auth/login",
-      "destination": "/api-dist/api/auth/login.mjs"
+      "destination": "/api/auth/login.js"
     },
     {
       "source": "/api/auth/logout",
-      "destination": "/api-dist/api/auth/logout.mjs"
+      "destination": "/api/auth/logout.js"
     },
     {
       "source": "/api/auth/session",
-      "destination": "/api-dist/api/auth/session.mjs"
+      "destination": "/api/auth/session.js"
     },
     {
       "source": "/api/realtime/poll",
-      "destination": "/api-dist/api/realtime/poll.mjs"
+      "destination": "/api/realtime/poll.js"
     },
     {
-      "source": "/((?!api|api-dist|assets).*)",
+      "source": "/((?!api|assets).*)",
       "destination": "/index.html"
     }
   ],

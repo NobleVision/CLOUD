@@ -8,7 +8,6 @@
 import * as esbuild from 'esbuild';
 import { glob } from 'glob';
 import path from 'path';
-import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -16,13 +15,6 @@ const rootDir = path.resolve(__dirname, '..');
 
 async function bundleApiFunctions() {
   console.log('📦 Bundling API functions for Vercel...\n');
-
-  // Clean api-dist directory
-  const apiDistDir = path.join(rootDir, 'api-dist');
-  if (fs.existsSync(apiDistDir)) {
-    fs.rmSync(apiDistDir, { recursive: true });
-  }
-  fs.mkdirSync(apiDistDir, { recursive: true });
 
   // Find all API function files (excluding _lib helpers and tsconfig)
   const apiFiles = await glob('api/**/*.ts', {
@@ -34,14 +26,11 @@ async function bundleApiFunctions() {
   apiFiles.forEach(f => console.log(`  - ${f}`));
   console.log('');
 
-  // Bundle each API function
+  // Bundle each API function directly into api/ directory as .js
   for (const file of apiFiles) {
     const entryPoint = path.join(rootDir, file);
-    const outDir = path.join(rootDir, 'api-dist', path.dirname(file));
+    const outDir = path.join(rootDir, path.dirname(file));
     
-    // Ensure output directory exists
-    fs.mkdirSync(outDir, { recursive: true });
-
     try {
       await esbuild.build({
         entryPoints: [entryPoint],
@@ -50,7 +39,8 @@ async function bundleApiFunctions() {
         target: 'node20',
         format: 'esm',
         outdir: outDir,
-        outExtension: { '.js': '.mjs' },
+        // Output as .js (Vercel will pick these up)
+        outExtension: { '.js': '.js' },
         external: [
           // Don't bundle Node.js built-ins
           'node:*',
