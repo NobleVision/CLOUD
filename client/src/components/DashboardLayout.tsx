@@ -71,11 +71,15 @@ import {
   BarChart3,
   Wrench,
   LucideIcon,
+  Database,
+  Loader2,
 } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState, useMemo, useCallback } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { PageTransition } from "@/components/PageTransition";
+import { trpc } from "@/lib/trpc";
+import { toast } from "sonner";
 
 // Types for menu structure
 interface MenuItem {
@@ -199,6 +203,53 @@ const EXPANDED_GROUPS_KEY = "nav-expanded-groups";
 const DEFAULT_WIDTH = 280;
 const MIN_WIDTH = 200;
 const MAX_WIDTH = 480;
+
+// Admin Actions Dropdown Component
+function AdminActionsDropdown() {
+  const seedMutation = trpc.mockData.seedAll.useMutation({
+    onSuccess: () => {
+      toast.success("Mock data seeded successfully!", {
+        description: "The database has been populated with sample data.",
+      });
+    },
+    onError: (error) => {
+      toast.error("Failed to seed mock data", {
+        description: error.message,
+      });
+    },
+  });
+
+  const handleSeedData = () => {
+    seedMutation.mutate();
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          className="h-9 w-9 flex items-center justify-center rounded-lg hover:bg-accent transition-colors"
+          aria-label="Admin actions"
+        >
+          <Database className="h-5 w-5 text-muted-foreground" />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuItem
+          onClick={handleSeedData}
+          disabled={seedMutation.isPending}
+          className="cursor-pointer"
+        >
+          {seedMutation.isPending ? (
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            <Database className="mr-2 h-4 w-4" />
+          )}
+          <span>{seedMutation.isPending ? "Seeding..." : "Seed Mock Data"}</span>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
 
 export default function DashboardLayout({
   children,
@@ -670,6 +721,8 @@ function DashboardLayoutContent({
             </div>
           </div>
           <div className="flex items-center gap-2">
+            {/* Admin Actions Dropdown */}
+            <AdminActionsDropdown />
             {/* Notification Center */}
             <NotificationCenter />
             {/* Theme Toggle */}
